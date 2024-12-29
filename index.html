@@ -12,8 +12,15 @@
     <label for="name">Digite seu nome:</label>
     <input type="text" id="name" placeholder="Seu nome aqui">
     <button onclick="greet()">Saudar</button>
+    <button onclick="resetApp()" class="secondary-button">Reiniciar</button>
+
+    <!-- Switch para alternar tema -->
+    <div class="theme-switch">
+        <input type="checkbox" id="theme-toggle" />
+        <label for="theme-toggle"></label>
+    </div>
+        
     <p id="message"></p>
     <script src="script.js"></script>
-
 </body>
 </html>

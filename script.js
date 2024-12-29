@@ -13,15 +13,56 @@ function greet() {
         greeting = "Boa noite";
     }
 
-    if (name) {
+    if (name.trim()) { // Verifica se o nome não está vazio ou somente com espaços
         message.textContent = `${greeting}, ${name}!`;
     } else {
         message.textContent = "Por favor, insira seu nome.";
     }
 
-    // Forçar reinício da animação
-    message.style.animation = "none";
+    // Reiniciar animação
+    resetAnimation(message);
+}
+
+function resetApp() {
+    const nameInput = document.getElementById('name');
+    const message = document.getElementById('message');
+
+    // Limpa o campo de entrada de texto e a mensagem
+    nameInput.value = '';
+    message.textContent = '';
+
+    // Reinicia a animação, se necessário
+    resetAnimation(message);
+}
+
+function resetAnimation(element) {
+    element.style.animation = "none";
     setTimeout(() => {
-        message.style.animation = ""; // Reaplica a animação
+        element.style.animation = ""; // Reaplica a animação
     }, 10);
 }
+
+// Alternância de tema
+document.getElementById('theme-toggle').addEventListener('change', function () {
+    const isDarkTheme = this.checked;
+    document.body.classList.toggle('dark-theme', isDarkTheme);
+
+    // Salva a preferência do tema no localStorage
+    localStorage.setItem('darkTheme', isDarkTheme);
+});
+
+// Aplicar o tema salvo ao carregar a página
+window.addEventListener('DOMContentLoaded', () => {
+    const isDarkTheme = localStorage.getItem('darkTheme') === 'true';
+    if (isDarkTheme) {
+        document.body.classList.add('dark-theme');
+        document.getElementById('theme-toggle').checked = true; // Ajusta o Switch
+    }
+});
+
+// Exemplo de evento para lidar com o Switch selecionado/deselecionado
+document.querySelectorAll('md-switch').forEach((switchElement) => {
+    switchElement.addEventListener('change', (event) => {
+        console.log(`Switch ${event.target.id} está ${event.target.selected ? 'ligado' : 'desligado'}`);
+    });
+});
